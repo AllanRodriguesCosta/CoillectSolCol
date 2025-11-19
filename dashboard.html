@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coillect - Dashboard Usuário (Simulação)</title>
+
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: linear-gradient(to top, #0f3f00 0%, #000000 55%);
+      color: #ffffff;
+    }
+
+    .phone-frame {
+      margin: 16px 0;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 40px;
+      border: 8px solid #000;
+      overflow: hidden;
+      background-color: #000;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .status-bar {
+      height: 24px;
+      background-color: #000;
+    }
+
+    .app-container {
+      background-color: transparent;
+      min-height: calc(100vh - 32px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #000;
+      padding: 10px 12px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-placeholder {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background-color: #1f1f1f;
+      border: 1px solid #4caf50;
+    }
+
+    .logo-img {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      object-fit: contain;
+    }
+
+    .header-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 8px;
+    }
+
+    .header-btn {
+      background-color: #111;
+      border-radius: 6px;
+      border: 1px solid #444;
+      padding: 6px 8px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* CONTEÚDO */
+    .app-content {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* MAPA → AUMENTADO */
+    .map-wrapper {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 4px;
+      border: 2px solid #3aa63e;
+    }
+
+    .map-inner {
+      border-radius: 6px;
+      overflow: hidden;
+      height: 420px !important; /* AUMENTADO */
+    }
+
+    .map-inner iframe {
+      border: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* BOTÕES */
+    .action-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      color: #fff;
+    }
+
+    .green { background-color: #1f8b31; }
+    .red   { background-color: #c51319; }
+
+    .action-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+    }
+
+    /* CARD DE INFO */
+    .info-card {
+      background-color: #1b1b1b;
+      border-radius: 6px;
+      padding: 10px 10px 12px 10px;
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .info-card-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      color: #9acd32;
+    }
+
+    /* MODAL DE CONFIRMAÇÃO */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-box {
+      background-color: #111;
+      padding: 20px;
+      width: 80%;
+      max-width: 340px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid #444;
+    }
+
+    .modal-box h3 {
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .modal-box p {
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .modal-btn {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 8px;
+      border: none;
+      color: #fff;
+    }
+
+    .modal-confirm { background-color: #c51319; }
+    .modal-close   { background-color: #444; }
+  </style>
+</head>
+
+<body>
+  <div class="phone-frame">
+    <div class="status-bar"></div>
+
+    <div class="app-container">
+      <!-- HEADER -->
+      <header class="app-header">
+        <div class="header-left">
+          <img 
+              src="file:///C:/Users/Hexze/OneDrive/Área%20de%20Trabalho/mapadecalor/Icone.png"
+              class="logo-img"
+            />
+          <div class="header-title">Bem-vindo, Usuário</div>
+        </div>
+
+        <div class="header-right">
+          <button class="header-btn"><i class="bi bi-list"></i></button>
+          <button class="header-btn"><i class="bi bi-box-arrow-right"></i></button>
+        </div>
+      </header>
+
+      <!-- CONTEÚDO -->
+      <main class="app-content">
+        <div class="map-wrapper">
+          <div class="map-inner">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.902918319273!2d-46.65646912481812!3d-23.574062462781062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8eb0c7361%3A0x2f99af3a6f2f1a68!2sPaulista%20Avenue!5e0!3m2!1sen!2sbr!4v1700000000000"
+              width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+
+          </div>
+        </div>
+
+        <button id="actionButton" class="action-btn green">
+          <i class="bi bi-truck"></i> SOLICITAR COLETA
+        </button>
+
+        <section class="info-card">
+          <div class="info-card-title">
+            <i class="bi bi-info-circle"></i>
+            <span>Informações da Coleta</span>
+          </div>
+          <div id="infoText">Nenhuma coleta em andamento.</div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal-overlay">
+    <div class="modal-box">
+      <h3>Confirmar Cancelamento</h3>
+      <p>Deseja realmente cancelar a coleta?</p>
+
+      <button class="modal-btn modal-confirm" onclick="confirmarCancelamento()">
+        Confirmar Cancelamento
+      </button>
+      <button class="modal-btn modal-close" onclick="fecharModal()">
+        Fechar
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const actionButton = document.getElementById("actionButton");
+    const infoText = document.getElementById("infoText");
+    const modal = document.getElementById("modal");
+
+    let state = "idle";
+    let timeout1, timeout2;
+
+    function formatDatePlusDays(days) {
+      const d = new Date();
+      d.setDate(d.getDate() + days);
+      return d.toLocaleDateString("pt-BR");
+    }
+
+    function solicitarColeta() {
+      state = "requesting";
+      actionButton.disabled = true;
+      infoText.textContent = "Solicitando coleta...";
+
+      timeout1 = setTimeout(() => {
+        if (state !== "requesting") return;
+        state = "awaiting";
+        actionButton.disabled = false;
+        actionButton.className = "action-btn red";
+        actionButton.innerHTML = '<i class="bi bi-truck"></i> CANCELAR COLETA';
+
+        infoText.textContent = "Coleta solicitada! Aguardando confirmação.";
+
+        timeout2 = setTimeout(() => {
+          if (state !== "awaiting") return;
+          state = "scheduled";
+
+          const dateStr = formatDatePlusDays(5);
+          infoText.textContent = `Coleta agendada para ${dateStr}!`;
+        }, 3000);
+      }, 3000);
+    }
+
+    function cancelarColeta() {
+      modal.style.display = "flex";
+    }
+
+    function confirmarCancelamento() {
+      modal.style.display = "none";
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+      state = "idle";
+
+      actionButton.className = "action-btn green";
+      actionButton.innerHTML = '<i class="bi bi-truck"></i> SOLICITAR COLETA';
+
+      infoText.textContent = "Nenhuma coleta em andamento.";
+    }
+
+    function fecharModal() {
+      modal.style.display = "none";
+    }
+
+    actionButton.addEventListener("click", () => {
+      if (state === "idle") solicitarColeta();
+      else cancelarColeta();
+    });
+  </script>
+</body>
+</html>
